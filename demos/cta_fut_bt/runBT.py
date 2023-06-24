@@ -29,7 +29,7 @@ if __name__ == "__main__":
     #创建一个运行环境，并加入策略
     engine = WtBtEngine(EngineType.ET_CTA)
     engine.init('../common/', "configbt.yaml")
-    engine.configBacktest(201809100935,201912011500)
+    engine.configBacktest(201409100935,201912011500)
     engine.configBTStorage(mode="csv", path="../storage/")
 
     # 注册自定义连续合约规则

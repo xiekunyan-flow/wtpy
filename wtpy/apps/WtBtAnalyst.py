@@ -30,7 +30,7 @@ class Calculate():
         self.rf = rf
         self.trade = math.ceil(trade)
         self.period = period
-        self.daily_rf = (self.rf + 1) ** (1 / self.period) - 1
+        self.daily_rf = Calculate.newpow((self.rf + 1) , (1 / self.period)) - 1
         self.capital = capital
         self.ret_day = ret_day
         self.trade_day = trade_day
@@ -991,9 +991,9 @@ def strategy_analyze(workbook:Workbook, df_closes, df_trades,df_funds, capital, 
     net_profit_long = result1_2.loc[5,'多头交易']
     net_profit_short = result1_3.loc[5,'空头交易']
     trade_day = df_funds.shape[0]
-    long_annualp =  ((net_profit_long + capital) / capital) ** (period / trade_day) -1
+    long_annualp =  Calculate.newpow(((net_profit_long + capital) / capital) , (period / trade_day)) -1
     short_annualp = Calculate.newpow(((net_profit_short + capital) / capital) , (period / trade_day)) - 1
-    long_monthlyp = (long_annualp + 1) ** (1/12) -1
+    long_monthlyp = Calculate.newpow((long_annualp + 1) , (1/12)) -1
     short_monthlyp = Calculate.newpow((short_annualp + 1 ) , (1/12)) -1
     long_month_average = ((net_profit_long + capital) / capital -1) / trade_day * period / 12
     short_month_average = ((net_profit_short + capital) / capital -1) / trade_day * period / 12
