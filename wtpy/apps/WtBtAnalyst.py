@@ -36,6 +36,9 @@ class Calculate():
         self.trade_day = trade_day
         self.profit = profit
 
+    def newpow(x,y):
+        return np.sign(x) * np.abs(x) ** y
+    
     # 潜在上行比率
     def calculate_upside_ratio(self):
         upside = self.ret_day - self.daily_rf
@@ -93,6 +96,7 @@ class Calculate():
     def calmar_ratio(self):
         maxdrawdown = Calculate.maxDrawdown_ratio(self)
         annual_return = Calculate.get_annual_return(self)
+        print("calmar_ratio: ",maxdrawdown,annual_return)
         calmar_ratio = annual_return / maxdrawdown
         return calmar_ratio
 
@@ -124,13 +128,13 @@ class Calculate():
 
     # 年化收益率
     def get_annual_return(self):
-        annual_return = 0 if self.trade_day==0 else (1+self.ret_day).cumprod()[len(self.ret_day)-1] ** (self.period / self.trade_day) - 1
+        annual_return = 0 if self.trade_day==0 else Calculate.newpow((1+self.ret_day).cumprod()[len(self.ret_day)-1] , (self.period / self.trade_day)) - 1
         return annual_return
 
     # 月化收益率
     def monthly_return(self):
         ann = Calculate.get_annual_return(self)
-        monthly_return = (ann + 1) ** (1/12) - 1
+        monthly_return = Calculate.newpow((ann + 1), (1/12)) - 1
         return monthly_return
 
     # 月平均收益
@@ -988,9 +992,9 @@ def strategy_analyze(workbook:Workbook, df_closes, df_trades,df_funds, capital, 
     net_profit_short = result1_3.loc[5,'空头交易']
     trade_day = df_funds.shape[0]
     long_annualp =  ((net_profit_long + capital) / capital) ** (period / trade_day) -1
-    short_annualp = ((net_profit_short + capital) / capital) ** (period / trade_day) - 1
+    short_annualp = Calculate.newpow(((net_profit_short + capital) / capital) , (period / trade_day)) - 1
     long_monthlyp = (long_annualp + 1) ** (1/12) -1
-    short_monthlyp = (short_annualp + 1 ) ** (1/12) -1
+    short_monthlyp = Calculate.newpow((short_annualp + 1 ) , (1/12)) -1
     long_month_average = ((net_profit_long + capital) / capital -1) / trade_day * period / 12
     short_month_average = ((net_profit_short + capital) / capital -1) / trade_day * period / 12
     worksheet.write('C17',long_annualp,value_format)
@@ -1313,8 +1317,7 @@ def funds_analyze(workbook:Workbook, df_funds:df, capital = 5000000, rf = 0, per
 
     #每日净值
     ayNetVals = (ayBal/init_capital)
-    
-    ar = math.pow(ayNetVals.iloc[-1], annual_days/days) - 1       #年化收益率=总收益率^(年交易日天数/统计天数)
+    ar = Calculate.newpow(ayNetVals.iloc[-1], annual_days/days) - 1       #年化收益率=总收益率^(年交易日天数/统计天数)
     ayDailyReturn = ayBal/ayPreBal-1 #每日收益率
     delta = fmtNAN(ayDailyReturn.std(axis=0)*math.pow(annual_days,0.5),0)       #年化标准差=每日收益率标准差*根号下(年交易日天数)
     down_delta = fmtNAN(ayDailyReturn[ayDailyReturn<0].std(axis=0)*math.pow(annual_days,0.5), 0)    #下行标准差=每日亏损收益率标准差*根号下(年交易日天数)

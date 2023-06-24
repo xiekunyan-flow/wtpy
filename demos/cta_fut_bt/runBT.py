@@ -1,3 +1,5 @@
+import os,sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from wtpy import WtBtEngine,EngineType
 from wtpy.apps import WtBtAnalyst
 from Strategies.DualThrust import StraDualThrust
@@ -27,7 +29,7 @@ if __name__ == "__main__":
     #创建一个运行环境，并加入策略
     engine = WtBtEngine(EngineType.ET_CTA)
     engine.init('../common/', "configbt.yaml")
-    engine.configBacktest(201909100930,201912011500)
+    engine.configBacktest(201809100935,201912011500)
     engine.configBTStorage(mode="csv", path="../storage/")
 
     # 注册自定义连续合约规则
