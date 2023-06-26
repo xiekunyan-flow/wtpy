@@ -8,7 +8,7 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
+/demos/cta_fut_bt/private.py
 # Editor directories and files
 .idea
 .vscode
