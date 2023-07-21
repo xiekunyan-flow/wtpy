@@ -1,6 +1,6 @@
 root:
     async: false
-    level: debug
+    level: info
     sinks:
     -   type: basic_file_sink
         filename: BtLogs/Runner.log
