@@ -7,11 +7,8 @@
 
    4. [待完成]获取一段时间内所有数据
       1. 将数据整合
-
 2. 修复回测时资产负数仍然建仓的bug
-
-
-
-正在执行：
-
-检查获取仓位的逻辑
+3. 成功编译wondertrader，生成so能为wtpy所用
+4. m1以下bar模式支持，需要修改wondertrader
+5. binance trade模式支持，需要修改wondertrader
+6. binance tick模式支持，需要修改wondertrader

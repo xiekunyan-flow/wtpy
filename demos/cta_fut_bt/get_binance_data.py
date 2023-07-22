@@ -13,6 +13,7 @@ nmonth : 4
 url = 'https://data.binance.vision/data/spot/monthly/trades/BTCUSDT/BTCUSDT-aggTrades-2023-01.zip'
 url = 'https://data.binance.vision/data/spot/monthly/trades/BNBUSDT/BNBUSDT-trades-2019-01.zip'
 url = 'https://data.binance.vision/data/spot/monthly/aggTrades/BNBUSDT/BNBUSDT-aggTrades-2019-01.zip'
+url = 'https://data.binance.vision/data/spot/monthly/aggTrades/BNBUSDT/BNBUSDT-aggTrades-2020-01.zip'
 file_name = wget.download(url)
 print(file_name)
 
