@@ -7,6 +7,7 @@
 
    - [x] 获取一段时间内所有数据
       - [x] 将数据整合成wondertrader可用
+      - [x] 将zip数据转换为wondertrader可用
 - [ ] 修复回测时资产负数仍然建仓的bug
 - [ ] 成功编译wondertrader，生成so能为wtpy所用
 - [ ] m1以下bar模式支持，需要修改wondertrader
